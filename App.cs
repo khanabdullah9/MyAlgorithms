@@ -33,5 +33,18 @@ namespace Algorithms
                     break;
             }
         }
+        public static void PrintArray(int[] container)
+        {
+            foreach (int num in container)
+            {
+                Console.Write(num + " ");
+            }
+        }
+        public static void Swap(int[] container, int idx1, int idx2)
+        {
+            int temp = container[idx1];
+            container[idx1] = container[idx2];
+            container[idx2] = temp;
+        }
     }
 }
