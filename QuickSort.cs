@@ -8,33 +8,27 @@ namespace Sorting
 {
     internal class QuickSort
     {
-        public static int Partition(int[] container, int high, int low) 
+        public static int Partition(int[] intArray, int low, int high)
         {
-            int i = low, j = high;
-            int pivot = container[low];
-            while (i < j)
+            int pi = intArray[high];
+            int i = (low - 1); // smaller element index
+            for (int j = low; j < high; j++)
             {
-                do
+                // check if current element is less than or equal to pi
+                if (intArray[j] <= pi)
                 {
                     i++;
-                }
-                while (container[i] <= pivot  );
-                do
-                {
-                    j--;
-                }
-                while (container[j] > pivot);
-                if (i < j)
-                {
-                    int temp1 = container[i];
-                    container[i] = container[j];
-                    container[j] = temp1;
+                    // swap intArray[i] and intArray[j]
+                    int temp1 = intArray[i];
+                    intArray[i] = intArray[j];
+                    intArray[j] = temp1;
                 }
             }
-            int temp2 = container[j];
-            container[j] = container[low];
-            container[low] = temp2;
-            return j;
+            // swap intArray[i+1] and intArray[high] (or pi)
+            int temp2 = intArray[i + 1];
+            intArray[i + 1] = intArray[high];
+            intArray[high] = temp2;
+            return i + 1;
         }
         public static void Sort(int[] container, int low, int high) 
         {
