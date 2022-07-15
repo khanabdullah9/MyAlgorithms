@@ -29,14 +29,17 @@ namespace Algorithms
 
         public void Solve() 
         {
-            this.chessBoard[0, 0] = 0;
-            if (SolveProblem(1, 0, 0))
+            int x = (this.boardSize / 2) ;
+            int y = (this.boardSize / 2) ;
+            this.chessBoard[x, y] = 0;
+            if (SolveProblem(1, x, y))
             {
-                ShowSolution();
+                //ShowSolution();
+                Console.WriteLine("There is A valid solution");
             }
             else 
             {
-                Console.WriteLine("There is no valid solution");
+                Console.WriteLine("There is NO valid solution");
             }
         }
 

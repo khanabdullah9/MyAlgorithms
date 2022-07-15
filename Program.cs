@@ -6,8 +6,12 @@ namespace Algorithms
     {
         public static void Main() 
         {
-            KnightTour problem = new KnightTour(5);
-            problem.Solve();
+            for (int i=1;i<=10;++i) 
+            {
+                Console.WriteLine($"Trying for {i}");
+                KnightTour problem = new KnightTour(i);
+                problem.Solve();
+            }
         }
     }
 }
