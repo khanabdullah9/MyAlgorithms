@@ -71,7 +71,7 @@ namespace Kruskal
         public static DisjointSet Union(DisjointSet ds1, DisjointSet ds2) 
         {
             List<Node> newNodes = new List<Node>();
-            foreach (var n1 in ds1.nodes) //NullReferenceException
+            foreach (var n1 in ds1.nodes)
             {
                 newNodes.Add(n1);
             }
@@ -135,6 +135,8 @@ namespace Kruskal
             DisjointSet ds1,ds2;
             ds1 = new DisjointSet(nodes, nodes[0]);//Making indivisual disjoint sets
             List<DisjointSet> AllDisjointSets = ds1.InitialDS();
+            List<DisjointSet> NewSetDS = new List<DisjointSet>();
+            List<Edge> mst2 = new List<Edge>();
 
             //Use the IsIn() boolean method
             foreach (var ds in AllDisjointSets)
@@ -144,24 +146,19 @@ namespace Kruskal
                     if (!(DisjointSet.IsIn(ds, e.startNode) && DisjointSet.IsIn(ds, e.targetNode)))
                     {
                         /*THEY WILL NOT FORM A CYCLE IN THE MST*/
-                        var dsStartNode = AllDisjointSets.Where(ds => ds.nodes.Count == 1 && ds.nodes.Contains(e.startNode)).Select(ds => ds).FirstOrDefault();
-                        var dsTargetNode = AllDisjointSets.Where(ds => ds.nodes.Count == 1 && ds.nodes.Contains(e.targetNode)).Select(ds => ds).FirstOrDefault();
+                        var dsStartNode = AllDisjointSets.Where(ds => ds.nodes.Contains(e.startNode)).Select(ds => ds).FirstOrDefault();
+                        var dsTargetNode = AllDisjointSets.Where(ds => ds.nodes.Contains(e.targetNode)).Select(ds => ds).FirstOrDefault();
 
                         DisjointSet newDS = DisjointSet.Union(dsStartNode, dsTargetNode);
-                        AllDisjointSets.Add(newDS);
-                        List<Edge> mst2 = new List<Edge>();
+                        NewSetDS.Add(newDS);
                         mst2.Add(e);
-                        AllDisjointSets.Remove(dsStartNode);
-                        AllDisjointSets.Remove(dsTargetNode);
-
-                        //mst.ShowMST();
-                        foreach (var e2 in mst2) 
-                        {
-                            Console.WriteLine("S     T");
-                            Console.WriteLine(e2.startNode + "  -  " + e2.targetNode);
-                        }
                     }
                 }
+            }
+            Console.WriteLine("Start     Target");
+            foreach (var e2 in mst2)
+            {
+                Console.WriteLine(e2.startNode.name + "  -  " + e2.targetNode.name);
             }
         }
     }
