@@ -31,9 +31,16 @@ namespace Algorithms
         //bottom-up approach
         public static int SeriesWithTabulation(int n, Hashtable table)
         {
-            for (int i=2;i<=n;++i)
+            for (int i = 2; i <= n; ++i)
             {
-                table.Add(n, (int)table[i-1] + (int)table[i-2]);
+                try 
+                {
+                    table.Add(i, (int)table[i - 1] + (int)table[i - 2]);
+                }
+                catch (Exception ex) 
+                {
+                    Console.WriteLine(ex.Message);
+                }
             }
             return (int)table[n];
         }
