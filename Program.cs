@@ -8,13 +8,12 @@ namespace Algorithms
     {
         public static void Main() 
         {
-            int n = 3;
-            int m = 50;
-            int[] weights = { 0, 10, 20, 30 };
-            int[] profits = { 0, 60, 100, 120 };
-            Knapsack knapsack = new Knapsack(n,m,weights,profits);
-            knapsack.Solve();
-            knapsack.PrintTable();
+            int[,] map = { { 1,0,0,0},
+                           { 1,1,0,1},
+                           { 0,1,0,0},
+                           { 1,1,1,1}};
+            Maze problem = new Maze(map);
+            problem.Solve();
         }
     }
 }
