@@ -6,8 +6,6 @@ namespace Algorithms
     {
         private int[,] map;
         private int[,] solution;
-        private int[] xMoves = {1,0,-1,0 };
-        private int[] yMoves = {0,1,0,-1};
 
         public Maze(int[,] map)
         {
