@@ -1,69 +1,38 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Algorithms;
 
-namespace Sorting
+namespace Sorting 
 {
-    internal class QuickSort
+    internal class QuickSort 
     {
-        public static int Partition(int[] container, int low, int high)
+        public int Partition(int[] container, int low, int high) 
         {
-            int pivot = container[low], i=low, j=high;
-            int temp;
-            while (i<j) 
+            int pivot = container[high];
+            int i = low - 1; //keeps track of the number of element sorted//initially none
+            for (int j = low; j < high; ++j)
             {
-                do
+                if (container[j] < pivot) 
                 {
-                    i++;
-                }
-                while (container[i] <= pivot);
-                do
-                {
-                    j--;
-                }
-                while (container[j] > pivot);
-                if (i<j) 
-                {
-                    temp = container[i];
-                    container[i] = container[j];
-                    container[j] = temp;
+                    i++;//making space for the sorted element
+                    //Swapping with the unsorted
+                    int temp = container[j];
+                    container[j] = container[i];
+                    container[i] = temp;
                 }
             }
-            temp = container[low];
-            container[low] = container[j];
-            container[j] = container[low];
-            return j;
+            //Now to sort the pivot
+            i++;
+            int temp2 = container[i];
+            container[i] = container[high];
+            container[high] = temp2;
+            return i;//partition
         }
-        public static void Sort(int[] container, int low, int high) 
+        public void Sort(int[] container, int low, int high)
         {
-            if (low<high) 
+            if (low < high)
             {
-                int partition = Partition(container,high,low);
-                //App.Debugger("test","TEST","QuickSort","Sort",$"partition={partition}");
-                Sort(container,low, partition-1);
-                Sort(container, partition + 1 , high);
-            }
-        }
-
-        /*WORST CASE THE PIVOT IS THE LARGEST ELEMENT*/
-        public static void GautiQS(int[] container, int low, int high)
-        {
-            int indexOfPivot = high;
-            int pivot = container[indexOfPivot];
-            for (int i=0;i<container.Length/2;++i) 
-            {
-                if (i.Equals(indexOfPivot))
-                {
-                    continue;//Do not disturb the pivot//Work around the pivot
-                }
-                if (container[i] > pivot)
-                {
-                    int n = container.Length - 1;
-                    App.Swap(container,i,n-i);
-                }
+                int partition = Partition(container,low,high);
+                Partition(container,low,partition-1);
+                Partition(container, partition + 1, high);
             }
         }
     }
