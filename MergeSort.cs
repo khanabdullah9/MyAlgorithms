@@ -11,7 +11,7 @@ namespace Sorting
             int idx1 = low, idx2 = mid+1, x =0;
             while (idx1 <= mid && idx2 <= high) 
             {
-                if (container[idx1] <= container[idx2])
+                if (container[idx1] <= container[idx2])//If the element in the first half is smaller or equal to the element in the other half
                 {
                     merged[x] = container[idx1];
                     x++;//making space for the next element
@@ -41,7 +41,7 @@ namespace Sorting
                 container[j] = merged[i];
             }
         }
-        public static void Sort(int[] container, int low, int high) 
+        public void Sort(int[] container, int low, int high) 
         {
             if (low<high) 
             {
