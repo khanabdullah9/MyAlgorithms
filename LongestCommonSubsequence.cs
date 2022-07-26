@@ -14,21 +14,7 @@ namespace Algorithms
             this.s1 = s1;
             this.s2 = s2;
             this.table = new int[s1.Length + 1, s2.Length + 1];
-            //InitializeTable();
         }
-
-        public void InitializeTable()
-        {
-            for (int a = 0; a < this.table.GetLength(0); ++a)
-            {
-                this.table[a, 0] = 0;
-            }
-            for (int b = 0; b < this.table.GetLength(1); ++b)
-            {
-                this.table[0, b] = 0;
-            }
-        }
-
         public void Solve()
         {
             SolveProblem();
@@ -37,7 +23,7 @@ namespace Algorithms
         }
         public void SolveProblem()
         {
-            for (int r = 1; r < this.s1.Length + 1; ++r)
+            for (int r = 1; r < this.s1.Length + 1; ++r)//Starting from one because the algorithm uses 1 based indexing
             {
                 for (int c = 1; c < this.s2.Length + 1; ++c)
                 {
@@ -62,7 +48,7 @@ namespace Algorithms
             {
                 if (this.table[m - 1, n] == this.table[m, n - 1])//If the number above and the number to the left are same move diagonally to left (one step)
                 {
-                    lcs += this.s2[n - 1];
+                    lcs += this.s2[n - 1];//where ever we move diagonally we pick that char
                     m--; n--;
                 }
                 else if (this.table[m - 1, n] > this.table[m, n - 1]) //If the cell one above has greater value than the cell one to the left move one cell above
