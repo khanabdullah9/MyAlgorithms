@@ -17,26 +17,26 @@ namespace Trees
             this.right = null;
         }
     }
-    internal class BinarySearchTree 
+    internal class BinarySearchTree
     {
         public Node root;
         public BinarySearchTree(Node root)
         {
             this.root = root;
         }
-        public void Insert(int data) 
+        public void Insert(int data)
         {
             if (this.root is null)//BST is empty
             {
                 Node newNode = new Node(data);
                 this.root = newNode;
             }
-            else 
+            else
             {
                 InsertNode(this.root, data);
             }
         }
-        public void InsertNode(Node node, int data) 
+        public void InsertNode(Node node, int data)
         {
             if (data < node.data)
             {
@@ -65,36 +65,82 @@ namespace Trees
                 }
             }
         }
-        public void Traverse() 
+        public void Traverse()
         {
             if (this.root is not null)
             {
                 Console.WriteLine("Inorder traversal....");
                 InOrder(this.root);
+                Console.WriteLine(" ");
+                Console.WriteLine("Post order traversal....");
+                PostOrder(this.root);
+                Console.WriteLine(" ");
+                Console.WriteLine("Pre order traversal....");
+                PreOrder(this.root);
+                //Console.WriteLine(" ");
             }
         }
-        public void InOrder(Node node) 
+        public void Traverse(string traversal, Node node)
+        {
+            switch (traversal.ToLower())
+            {
+                case "inorder":
+                    InOrder(node);
+                    break;
+                case "preorder":
+                    PreOrder(node);
+                    break;
+                case "postorder":
+                    PostOrder(node);
+                    break;
+            }
+        }
+        public void InOrder(Node node)
         {
             if (node.left is not null)
             {
                 InOrder(node.left);
             }
-            Console.WriteLine(node.data);
+            Console.Write(node.data + " ");
             if (node.right is not null)
             {
                 InOrder(node.right);
             }
         }
-        public int GetMax() 
+        public void PostOrder(Node node)
         {
-            if (this.root is null) 
+            if (node.left is not null)
+            {
+                PostOrder(node.left);
+            }
+            if (node.right is not null)
+            {
+                PostOrder(node.right);
+            }
+            Console.Write(node.data + " ");
+        }
+        public void PreOrder(Node node)
+        {
+            Console.Write(node.data + " ");
+            if (node.left is not null)
+            {
+                PreOrder(node.left);
+            }
+            if (node.right is not null)
+            {
+                PreOrder(node.right);
+            }
+        }
+        public int GetMax()
+        {
+            if (this.root is null)
             {
                 return 0;
             }
             var max = RightMost(this.root);
             return max;
         }
-        public int RightMost(Node node) 
+        public int RightMost(Node node)
         {
             Node actual = node;
             while (actual.right is not null)
@@ -103,7 +149,7 @@ namespace Trees
             }
             return actual.data;
         }
-        public int GetMin() 
+        public int GetMin()
         {
             if (this.root is null)
             {
@@ -112,10 +158,10 @@ namespace Trees
             var min = LeftMost(this.root);
             return min;
         }
-        public int LeftMost(Node node) 
+        public int LeftMost(Node node)
         {
             Node actual = node;
-            while (actual.left is not null) 
+            while (actual.left is not null)
             {
                 actual = actual.left;
             }
@@ -218,10 +264,10 @@ namespace Trees
         /*
          * Return the right most node in the left sub tree
          */
-        public Node GetPredecessor() 
+        public Node GetPredecessor()
         {
             Node start = this.root;
-            while (start.left is not null) 
+            while (start.left is not null)
             {
                 start = start.left;
             }
@@ -231,6 +277,62 @@ namespace Trees
                 actual = actual.right;
             }
             return actual;
+        }
+        public Node Invert(Node node)
+        {
+            if (node == null)
+            {
+                return null;
+            }
+            Node leftNode = Invert(node.left);
+            Node rightNode = Invert(node.right);
+
+            //Swapping the nodes with respect to their parent's pointer
+            node.left = rightNode;
+            node.right = leftNode;
+
+            return node;
+        }
+        /*Right/left view is the nodes visible if we view the tree from the right or left side of the tree*/
+        public List<int> RightSideView(Node node)
+        {
+            Console.WriteLine("Right side view of the tree looks like: ");
+            List<int> result = new List<int>();
+            RightView(node,0,result);
+            return result;
+        }
+        public void RightView(Node node, int level, List<int> ds)
+        {
+            if (node == null)
+            {
+                return;
+            }
+            if (level == ds.Count)
+            {
+                ds.Add(node.data);
+            }
+            RightView(node.right, level+1, ds);
+            RightView(node.left, level+1, ds);
+        }
+        public List<int> LeftSideView(Node node) 
+        {
+            Console.WriteLine("Left view of the tree looks like: ");
+            List<int> result = new List<int>();
+            LeftView(node,0,result);
+            return result;
+        }
+        public void LeftView(Node node, int level, List<int> ds)
+        {
+            if (node == null)
+            {
+                return;
+            }
+            if (level == ds.Count)
+            {
+                ds.Add(node.data);
+            }
+            LeftView(node.left, level+1, ds);
+            LeftView(node.right, level+1, ds);
         }
     }
 }
